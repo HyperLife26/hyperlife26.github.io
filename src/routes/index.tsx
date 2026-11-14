@@ -38,7 +38,8 @@ function Welcome() {
 
       <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pt-24 pb-14">
         <p className="pixel-label mb-8 text-sky">★ HyperLife crew health system ★</p>
-        <PixelWord word="HELLO" pixel={18} />
+        <PixelWord word="HELLO" pixel={8} className="sm:hidden" />
+        <PixelWord word="HELLO" pixel={18} className="hidden sm:flex" />
         <p className="mt-10 text-3xl text-foreground">
           Select astronaut<span className="animate-blink text-gold">_</span>
         </p>

@@ -24,9 +24,9 @@ export function ScreenShell({
   return (
     <div className="relative min-h-screen bg-space">
       <Starfield count={90} seed={11} />
-      <div className="relative mx-auto max-w-[1440px] px-6 py-6">
-        <header className="pixel-panel mb-6 flex items-center justify-between gap-6 px-5 py-3">
-          <div className="flex items-center gap-4">
+      <div className="relative mx-auto max-w-[1440px] px-3 py-4 md:px-6 md:py-6">
+        <header className="pixel-panel mb-6 flex flex-wrap items-center justify-between gap-4 px-4 py-3 md:gap-6 md:px-5">
+          <div className="flex flex-wrap items-center gap-4">
             <Link
               to="/base"
               className="pixel-label pixel-focus border-[3px] border-space bg-panel-raised px-3 py-2 text-foreground shadow-[3px_3px_0_0_var(--space)] hover:text-gold"
@@ -36,7 +36,7 @@ export function ScreenShell({
             <PixelIcon name={icon} size={28} />
             <h1 className="pixel-title text-gold">{title}</h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             {right}
             <CrewBadge user={user} energy={energy} compact />
           </div>

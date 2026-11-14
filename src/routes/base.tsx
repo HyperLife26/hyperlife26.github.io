@@ -54,12 +54,12 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
         <Starfield count={30} seed={5} className="opacity-70" />
 
         {/* top bar */}
-        <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-6 p-6">
+        <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-3 p-4 md:gap-6 md:p-6">
           <div className="pixel-hud flex items-center gap-3 border-lavender px-4 py-3">
             <PixelIcon name="heart" size={24} />
             <span className="pixel-title text-foreground">HYPERLIFE</span>
           </div>
-          <div className="pixel-hud flex items-center border-lavender px-5 py-3">
+          <div className="pixel-hud hidden items-center border-lavender px-5 py-3 sm:flex">
             <span className="pixel-label text-muted-foreground">Today's logs</span>
             <span className="pixel-title ml-4 text-gold">{doneCount}/3</span>
           </div>
@@ -67,7 +67,7 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
         </div>
 
         {/* left HUD stack, like the inspo resources column */}
-        <div className="absolute top-32 left-0 flex w-64 flex-col gap-3">
+        <div className="absolute top-32 left-0 hidden w-64 flex-col gap-3 lg:flex">
           <div className="pixel-hud border-l-0 px-5 py-4">
             <p className="pixel-label text-pink">{env.name}</p>
             <dl className="mt-3 space-y-1 text-2xl leading-none">
@@ -109,7 +109,7 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
 
       {/* ---------- control deck ---------- */}
       <section className="relative flex-1 border-t-[3px] border-pink">
-        <div className="flex items-center justify-between border-b-[6px] border-panel bg-space px-10 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b-[6px] border-panel bg-space px-4 py-4 md:px-10">
           <p className="pixel-label text-foreground">
             Mission day {missionDay(user)} · {env.name}
           </p>
@@ -130,8 +130,8 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
           </div>
         </div>
 
-        <div className="mx-auto max-w-5xl px-10 py-8">
-          <div className="flex items-start justify-between gap-8">
+        <div className="mx-auto max-w-5xl px-4 py-8 md:px-10">
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:gap-8">
             <div>
               <p className="pixel-title text-foreground">{unlocked ? "Health overview unlocked" : "Daily log pending"}</p>
               <p className="mt-3 max-w-xl text-2xl leading-tight text-muted-foreground">
@@ -142,13 +142,13 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
                 )}
               </p>
             </div>
-            <div className="w-56 pt-1">
+            <div className="w-full pt-1 md:w-56">
               <p className="pixel-label text-right text-muted-foreground">Progress {doneCount}/3</p>
               <SegmentBar value={doneCount} max={3} segments={12} tone={unlocked ? "mint" : "pink"} height="h-4" className="mt-2" />
             </div>
           </div>
 
-          <nav className="mt-8 grid grid-cols-4 gap-6" aria-label="Daily logs">
+          <nav className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4" aria-label="Daily logs">
             {tiles.map((t) => (
               <Link
                 key={t.to}

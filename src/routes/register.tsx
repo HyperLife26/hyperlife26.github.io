@@ -102,7 +102,7 @@ function Register() {
                   className={inputCls}
                 />
               </Field>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <Field label="Age" error={errors.age}>
                   <input type="number" inputMode="numeric" value={form.age} onChange={(e) => set("age", e.target.value)} placeholder="34" className={inputCls} />
                 </Field>

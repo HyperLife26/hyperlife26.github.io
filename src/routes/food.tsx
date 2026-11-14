@@ -76,7 +76,7 @@ function FoodDiary({ user, today, logs }: { user: CrewMember; todayLog?: DayLog;
         </p>
       }
     >
-      <div className="grid grid-cols-[280px_1fr_360px] gap-6">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[280px_1fr_360px]">
         {/* ---------- save files ---------- */}
         <Panel as="aside" kicker="Save files" title={`${daysLogged} day${daysLogged === 1 ? "" : "s"} logged`} className="flex flex-col">
           <ul className="-mx-2 flex-1 space-y-2">
@@ -92,7 +92,7 @@ function FoodDiary({ user, today, logs }: { user: CrewMember; todayLog?: DayLog;
 
         {/* ---------- day ---------- */}
         <Panel kicker="Save file" title={format(parseISO(viewDate), "EEEE, MMMM d, yyyy")}>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {MEAL_SLOTS.map(({ slot, label }) => {
               const m = food.meals[slot];
               return (
@@ -159,7 +159,7 @@ function FoodDiary({ user, today, logs }: { user: CrewMember; todayLog?: DayLog;
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-3">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
             {(
               [
                 ["Calories", score.parts.calories, FOOD_SCORE_MAX.calories],
@@ -320,8 +320,8 @@ function MealEditor({ slot, initial, onClose, onSave }: { slot: MealSlot; initia
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-space/80 p-6" role="dialog" aria-modal aria-label={`Log ${label}`} onClick={onClose}>
-      <div className="pixel-panel w-full max-w-2xl p-6" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-space/80 p-3 md:p-6" role="dialog" aria-modal aria-label={`Log ${label}`} onClick={onClose}>
+      <div className="pixel-panel my-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-4">
           <PixelIcon name={slot} size={40} />
           <h2 className="pixel-title text-gold">Log {label}</h2>
@@ -354,7 +354,7 @@ function MealEditor({ slot, initial, onClose, onSave }: { slot: MealSlot; initia
             className="pixel-focus h-11 w-full border-[3px] border-input bg-space px-3 text-2xl outline-none placeholder:text-muted-foreground/50 focus:border-sky"
           />
         </label>
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
           {num("kcal", "Calories", "kcal")}
           {num("protein", "Protein", "g")}
           {num("carbs", "Carbs", "g")}

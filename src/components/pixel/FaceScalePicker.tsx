@@ -14,7 +14,7 @@ export function FaceScalePicker({
   name: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={name} className="grid grid-cols-5 gap-3">
+    <div role="radiogroup" aria-label={name} className="grid grid-cols-5 gap-1 sm:gap-3">
       {([1, 2, 3, 4, 5] as FaceScale[]).map((lvl) => {
         const on = value === lvl;
         return (
@@ -25,12 +25,14 @@ export function FaceScalePicker({
             aria-checked={on}
             onClick={() => onChange(lvl)}
             className={cn(
-              "pixel-focus flex cursor-pointer flex-col items-center gap-2 border-[3px] bg-space px-2 py-3 transition-transform",
+              "pixel-focus flex min-w-0 cursor-pointer flex-col items-center gap-2 border-[3px] bg-space px-1 py-3 transition-transform sm:px-2",
               on ? "-translate-y-1 border-gold bg-panel-raised" : "border-input hover:border-lavender",
             )}
           >
-            <PixelFace level={lvl} size={44} className={on ? "animate-bob" : undefined} />
-            <span className={cn("text-lg leading-none", on ? "text-gold" : "text-muted-foreground")}>{labels[lvl - 1]}</span>
+            <PixelFace level={lvl} size={44} className={cn("h-9 w-9 sm:h-11 sm:w-11", on && "animate-bob")} />
+            <span className={cn("w-full truncate text-center text-sm leading-none sm:text-lg", on ? "text-gold" : "text-muted-foreground")}>
+              {labels[lvl - 1]}
+            </span>
           </button>
         );
       })}
@@ -61,7 +63,7 @@ export function ChoiceRow<T extends string>({
             aria-checked={on}
             onClick={() => onChange(o.value)}
             className={cn(
-              "pixel-focus h-12 cursor-pointer border-[3px] text-2xl",
+              "pixel-focus h-auto min-h-12 min-w-0 cursor-pointer border-[3px] px-2 py-2 text-xl leading-tight sm:text-2xl",
               on ? "border-gold bg-gold text-space" : "border-input bg-space text-foreground hover:border-lavender",
             )}
           >

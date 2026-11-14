@@ -107,7 +107,7 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
           kicker="Live vitals vs your baseline"
           action={<span className={cn("pixel-label border-[3px] px-3 py-1", STATUS_TEXT[worst], "border-current")}>Wearable: {worst}</span>}
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
             {vitals.map((v) => (
               <VitalCard key={v.key} v={v} />
             ))}
@@ -117,7 +117,7 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
               <span key={i} className={cn("flex-1", STATUS_BG[s])} />
             ))}
           </div>
-          <div className="mt-2 flex items-center justify-between text-xl text-muted-foreground">
+          <div className="mt-2 flex flex-col gap-2 text-xl text-muted-foreground md:flex-row md:items-center md:justify-between">
             <span>Wearable status over time: <span className="text-mint">green normal</span> · <span className="text-gold">amber watch</span> · <span className="text-warn">red alert</span></span>
             <div className="flex gap-2">
               {vitals.map((v) => {
@@ -133,7 +133,7 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
         </Panel>
 
         {/* ---------- hazards ---------- */}
-        <div className="grid grid-cols-[1fr_1.7fr] gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.7fr]">
           <Panel kicker="Hazard risk now">
             <ul className="space-y-4">
               {riskKeys.map((k) => {
@@ -188,7 +188,7 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
 
         {/* ---------- suggestions ---------- */}
         <Panel kicker="Mission control suggestions" title="Today's plan">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {tips.map((t) => (
               <div
                 key={t.title}
@@ -208,7 +208,7 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
         </Panel>
 
         {/* ---------- crew score ---------- */}
-        <div className="grid grid-cols-[340px_1fr] gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[340px_1fr]">
           <Panel kicker="Your crew score" className="text-center">
             <AvatarFrame user={user} size={96} className="mx-auto" />
             <p className="mt-4 text-8xl leading-none text-gold">
@@ -222,7 +222,8 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
           </Panel>
 
           <Panel kicker="Crew leaderboard" title="Compare scores">
-            <table className="w-full text-2xl">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px] text-2xl">
               <thead>
                 <tr className="pixel-label text-left text-muted-foreground">
                   <th className="pb-3 font-normal">#</th>
@@ -274,7 +275,8 @@ function Unlocked({ user, day, today, energy }: { user: CrewMember; day: Require
                   );
                 })}
               </tbody>
-            </table>
+              </table>
+            </div>
           </Panel>
         </div>
       </div>

@@ -28,15 +28,18 @@ export const Route = createFileRoute("/environment")({
 
 function EnvironmentPage() {
   const hydrated = useHydrated();
-  const { draft } = useHyperLife();
+  const { draft, currentUserId } = useHyperLife();
   const navigate = useNavigate();
   const [env, setEnv] = useState<EnvironmentKind | null>(null);
 
   useEffect(() => {
-    if (hydrated && !draft?.crewId) navigate({ to: "/register" });
-  }, [hydrated, draft, navigate]);
+    // `registerFromDraft` clears the draft as soon as the crew member exists.
+    // Keep the page mounted for that navigation so it doesn't bounce back to
+    // /register before the launch handler can move on to /base.
+    if (hydrated && !draft?.crewId && !currentUserId) navigate({ to: "/register" });
+  }, [hydrated, draft, currentUserId, navigate]);
 
-  if (!hydrated || !draft?.crewId) return <BootScreen />;
+  if (!hydrated || (!draft?.crewId && !currentUserId)) return <BootScreen />;
 
   const launch = () => {
     if (!env) return;

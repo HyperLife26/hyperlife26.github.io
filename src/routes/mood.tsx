@@ -59,7 +59,7 @@ function MoodForm({ user, todayLog, today, logs }: { user: CrewMember; todayLog?
           <FaceScalePicker name="Stress" value={calm} onChange={setCalm} labels={CALM_LABELS} />
         </Q>
         <Q n={3} title="How many hours have you slept?">
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <Stepper label="Hours slept" value={sleep} onChange={setSleep} step={0.5} min={0} max={14} unit="hrs" />
             <div className="flex-1">
               <SegmentBar value={sleep} max={10} segments={10} tone={sleep < 6 ? "warn" : sleep < 7 ? "peach" : "sky"} height="h-6" />

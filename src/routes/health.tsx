@@ -70,7 +70,7 @@ function HealthForm({ user, todayLog, today, logs }: { user: CrewMember; todayLo
         </Panel>
 
         <Panel kicker="Question 2" title="Exercise activity (minutes)">
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-6">
             <Stepper label="Exercise minutes" value={exercised === "no" ? 0 : minutes} onChange={setMinutes} step={15} min={0} max={240} unit="min" disabled={exercised !== "yes"} />
             <p className="text-xl leading-tight text-muted-foreground">
               Target <span className="text-gold">90 min</span>

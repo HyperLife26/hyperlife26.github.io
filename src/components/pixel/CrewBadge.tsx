@@ -24,9 +24,9 @@ export function AvatarFrame({ user, size = 72, className }: { user: CrewMember; 
 /** Top-right HUD: avatar, crew id, energy bar, mission day. */
 export function CrewBadge({ user, energy, compact = false }: { user: CrewMember; energy: number; compact?: boolean }) {
   return (
-    <div className={cn("pixel-hud flex items-center gap-4", compact ? "p-2 pr-4" : "p-3 pr-5")}>
+    <div className={cn("pixel-hud flex max-w-full items-center gap-4", compact ? "p-2 pr-4" : "p-3 pr-5")}>
       <AvatarFrame user={user} size={compact ? 52 : 76} />
-      <div className={compact ? "w-40" : "w-52"}>
+      <div className={compact ? "w-36 sm:w-40" : "w-40 sm:w-52"}>
         <p className="pixel-label text-foreground">{user.crewId}</p>
         <div className="mt-2 flex items-center gap-2">
           <span className="pixel-label text-pink">NRG</span>

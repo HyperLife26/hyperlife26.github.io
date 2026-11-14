@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+.nitro/
+.vite/
+
+# build output
+.output/
+dist/
+
+# local environment
+.env
+.env.*
+!.env.example
+
+# editor / OS
+.DS_Store
+*.log

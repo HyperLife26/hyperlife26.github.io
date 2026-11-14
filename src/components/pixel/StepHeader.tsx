@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export function StepHeader({ step, title }: { step: 1 | 2; title: string }) {
   return (
-    <header className="mb-8 flex items-end justify-between gap-6">
+    <header className="mb-8 flex flex-wrap items-end justify-between gap-4 md:gap-6">
       <div>
         <Link to="/" className="pixel-label text-muted-foreground hover:text-gold">
           ◀ Crew select
