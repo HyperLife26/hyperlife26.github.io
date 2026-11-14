@@ -1,0 +1,25 @@
+{
+  "description": "Golden vector shared by the firmware host check and the browser runtime.",
+  "input": {
+    "hr": 120,
+    "hrv": 20,
+    "spo2": 92,
+    "temp": 38,
+    "slope": 0.2,
+    "activity": 80,
+    "sleep": 5,
+    "day": 100,
+    "gravity": 0,
+    "rad": 1.5,
+    "age": 55,
+    "cvd": 1,
+    "symptom": 1,
+    "cumRad": 150
+  },
+  "expected": {
+    "fused": [90.732, 21.805, 64.91, 29.454, 43.467],
+    "model": [79.404, 21.895, 53.921, 27.87, 44.65],
+    "rule": [100, 21.732, 73.9, 30.75, 42.5],
+    "cardiacEvent": 0.85022
+  }
+}

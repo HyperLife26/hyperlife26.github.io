@@ -17,6 +17,7 @@ export function PixelChart({
   className,
   yTicks,
   xLabels = ["-7 min", "now"],
+  markers = [],
 }: {
   series: ChartSeries[];
   min: number;
@@ -27,6 +28,7 @@ export function PixelChart({
   className?: string;
   yTicks?: number[];
   xLabels?: [string, string];
+  markers?: { position: number; label: string }[];
 }) {
   const W = 400;
   const H = 100;
@@ -80,6 +82,19 @@ export function PixelChart({
                 vectorEffect="non-scaling-stroke"
               />
             ))}
+            {markers.map((m) => (
+              <line
+                key={`${m.label}-${m.position}`}
+                x1={m.position * W}
+                x2={m.position * W}
+                y1={0}
+                y2={H}
+                stroke="var(--gold)"
+                strokeOpacity={0.55}
+                strokeDasharray="4 4"
+                vectorEffect="non-scaling-stroke"
+              />
+            ))}
             {series.map((s, i) => (
               <path
                 key={i}
@@ -100,11 +115,20 @@ export function PixelChart({
               {r.label}
             </span>
           ))}
+          {markers.map((m) => (
+            <span
+              key={`${m.label}-${m.position}`}
+              className="pixel-label absolute top-1 -translate-x-1/2 bg-space px-1 text-gold"
+              style={{ left: `${Math.min(92, Math.max(8, m.position * 100))}%` }}
+            >
+              {m.label}
+            </span>
+          ))}
           {series.map((s, i) => (
             <span
               key={i}
               className="absolute right-0 h-2 w-2 translate-x-1/2 -translate-y-1/2"
-              style={{ top: `${(y(s.values[s.values.length - 1]) / H) * 100}%`, background: s.color }}
+              style={{ top: `${(y(s.values[s.values.length - 1] ?? min) / H) * 100}%`, background: s.color }}
             />
           ))}
         </div>

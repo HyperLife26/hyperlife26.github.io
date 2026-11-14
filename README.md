@@ -19,6 +19,97 @@ Prefer working locally? You need Node.js and npm — [install with nvm](https://
 ```sh
 git clone <this-repository-url>
 cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
 ```
+
+The site is a static build (`bun run build`) and is hosted on GitHub Pages, so
+everything runs in the browser: no server, database or wearable hardware is
+required at runtime.
+
+## Live mission dashboard
+
+The dashboard is always available. It no longer waits for three daily logs;
+instead, the log forms sharpen the model inputs.
+
+- State is a pure function of wall-clock time:
+  `snapshot(t) = f(seed, missionEpoch, schedule, profile, behaviour, logs)`.
+- Demo crew starts are fixed, so every visitor sees the same timeline.
+- `?t=<unix-ms>` opens a shareable replay. The replay re-evaluates `f(t)` for a
+  seven-hour window instead of reading stored telemetry.
+- Recent mood/health/food logs override the nominal crew schedule for sleep,
+  training, stress, nutrition and symptoms. Without logs, a nominal schedule is
+  used and the UI says so.
+- Two-hour drill slots rotate through cardiac, radiation, bone and immune
+  scenarios. The drill affects vitals, then flows through the same model.
+
+Mission code lives in `src/lib/mission/`:
+
+| File | Purpose |
+| --- | --- |
+| `profiles.ts` | fixed demo epochs, crew profile, mission phase |
+| `scenario.ts` | deterministic drill schedule |
+| `behavior.ts` | log-derived or nominal behaviour |
+| `vitals.ts` | vitals generation and drill effects |
+| `snapshot.ts` | `buildSnapshot` / `buildMissionView` |
+| `advice.ts` | mission control suggestions |
+| `brief.ts` | mission brief (browser AI, endpoint, template) |
+| `hooks.ts` | mission clock and React hooks |
+
+## On-device risk model
+
+The dashboard runs the actual HyperWatch firmware risk engine:
+
+- `wasm/hyperwatch/src/` vendors the C++ core from the HyperWatch repository
+  (MIT, model v1.0).
+- `public/hyperwatch/risk.wasm` is the compiled 13-16-8-6 int8 model plus the
+  transparent rule engine. It is loaded once and used for every snapshot.
+- `src/lib/mission/int8Model.ts` is an exact TypeScript mirror of the int8
+  weights. It is the fallback if the WASM fetch is unavailable, so the
+  dashboard always renders.
+- The fused output is 55% rule engine and 45% model, matching the firmware.
+  The dashboard shows the five hazard domains plus the acute cardiac flag.
+
+`wasm/hyperwatch/golden.json` is the firmware-host golden vector. Both the
+TypeScript mirror and the compiled WASM are checked against it.
+
+Rebuild the WASM after changing the C++ core (needs Zig 0.17+):
+
+```sh
+ZIG=/path/to/zig ./wasm/hyperwatch/build.sh
+node wasm/hyperwatch/verify.mjs
+node wasm/hyperwatch/extract-weights.mjs
+```
+
+The generated `risk.wasm` is committed, so the normal site build does not need
+a C++ toolchain. GitHub Pages cannot set COOP/COEP, so the module runs without
+threads or `SharedArrayBuffer`.
+
+The model is decision support for a research prototype, not a medical device
+and not a diagnosis.
+
+## Mission brief
+
+The brief panel tries three sources in order:
+
+1. `VITE_BRIEF_ENDPOINT` — an optional POST endpoint. It receives
+   `{ facts, system }` and returns `{ text }`. No key is shipped in the bundle;
+   put the secret in the proxy.
+2. Chrome's built-in `LanguageModel` API, when the browser exposes it.
+3. A facts-only template. The panel labels this `FACTS TEMPLATE` and states that
+   on-device AI is unavailable.
+
+Copy `.env.example` to `.env` to point the site at a proxy. The brief never
+invents numbers: the generated text is validated against the supplied facts,
+and the template is always available as the deterministic fallback.
+
+## Verify locally
+
+```sh
+bun run test    # deterministic timeline, drill, log override, WASM parity
+bun run build   # static build + prerender of all routes
+node wasm/hyperwatch/verify.mjs
+```
+
+Deployment is the existing GitHub Pages workflow: commit, push to `main`, and
+the static output is published. No runtime environment variables are required.

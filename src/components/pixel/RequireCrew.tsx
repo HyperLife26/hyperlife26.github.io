@@ -18,7 +18,7 @@ export function BootScreen({ label = "BOOTING HYPERLIFE" }: { label?: string }) 
 export function RequireCrew({
   children,
 }: {
-  children: (ctx: { user: CrewMember; todayLog?: DayLog; today: string; logs: Record<string, DayLog> }) => ReactNode;
+  children: (ctx: { user: CrewMember; todayLog: DayLog | undefined; today: string; logs: Record<string, DayLog> }) => ReactNode;
 }) {
   const hydrated = useHydrated();
   const ctx = useCurrentUser();

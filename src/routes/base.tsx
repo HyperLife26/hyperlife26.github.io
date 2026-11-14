@@ -27,13 +27,14 @@ export const Route = createFileRoute("/base")({
 
 type Dest = "/mood" | "/food" | "/health" | "/dashboard";
 
-function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; logs: Record<string, DayLog> }) {
+function Base({ user, todayLog, logs }: { user: CrewMember; todayLog: DayLog | undefined; logs: Record<string, DayLog> }) {
   const navigate = useNavigate();
   const state = useHyperLife();
   const env = ENVIRONMENTS[user.environment];
   const done = completedLogs(todayLog);
   const doneCount = [done.mood, done.food, done.health].filter(Boolean).length;
-  const unlocked = doneCount === 3;
+  const dailyComplete = doneCount === 3;
+  const unlocked = true;
   const energy = energyFor(user, logs);
   const standing = crewStandings(state);
   const myPos = standing.findIndex((s) => s.user.id === user.id) + 1;
@@ -42,7 +43,7 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
     { to: "/mood", icon: "mood", label: "Mood form", done: done.mood },
     { to: "/food", icon: "food", label: "Food diary", done: done.food },
     { to: "/health", icon: "health", label: "Health form", done: done.health },
-    { to: "/dashboard", icon: unlocked ? "dashboard" : "lock", label: "Dashboard", done: false, locked: !unlocked },
+    { to: "/dashboard", icon: "dashboard", label: "Dashboard", done: false, locked: false },
   ];
 
   return (
@@ -114,8 +115,8 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
             Mission day {missionDay(user)} · {env.name}
           </p>
           <div className="flex items-center gap-4">
-            <Link to="/dashboard" className="pixel-label text-muted-foreground hover:text-gold" disabled={!unlocked}>
-              Crew scores
+            <Link to="/dashboard" className="pixel-label text-muted-foreground hover:text-gold">
+              Live dashboard
             </Link>
             <button
               type="button"
@@ -133,18 +134,18 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
         <div className="mx-auto max-w-5xl px-4 py-8 md:px-10">
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:gap-8">
             <div>
-              <p className="pixel-title text-foreground">{unlocked ? "Health overview unlocked" : "Daily log pending"}</p>
+              <p className="pixel-title text-foreground">{dailyComplete ? "Daily log complete" : "Live mission running"}</p>
               <p className="mt-3 max-w-xl text-2xl leading-tight text-muted-foreground">
-                {unlocked ? (
-                  <>All logs complete. Open the <span className="text-pink">dashboard</span> to see your vitals, risks and crew score.</>
+                {dailyComplete ? (
+                  <>All logs complete. Open the <span className="text-pink">dashboard</span> for live vitals, model risks and the crew score.</>
                 ) : (
-                  <>Finish logging your daily information to access <span className="text-pink">health overview dashboard</span>.</>
+                  <>The <span className="text-pink">live dashboard</span> is already running from the mission schedule. Finish today's log to feed your sleep, training and symptoms into the model.</>
                 )}
               </p>
             </div>
             <div className="w-full pt-1 md:w-56">
               <p className="pixel-label text-right text-muted-foreground">Progress {doneCount}/3</p>
-              <SegmentBar value={doneCount} max={3} segments={12} tone={unlocked ? "mint" : "pink"} height="h-4" className="mt-2" />
+              <SegmentBar value={doneCount} max={3} segments={12} tone={dailyComplete ? "mint" : "pink"} height="h-4" className="mt-2" />
             </div>
           </div>
 
@@ -153,8 +154,8 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
               <Link
                 key={t.to}
                 to={t.to}
-                disabled={t.locked}
-                aria-disabled={t.locked}
+                disabled={!!t.locked}
+                aria-disabled={!!t.locked}
                 className={cn(
                   "pixel-tile pixel-focus group relative flex flex-col items-center gap-4 px-4 py-6 transition-transform",
                   t.locked ? "cursor-not-allowed opacity-60" : "hover:-translate-y-1 hover:border-foreground",
@@ -170,7 +171,7 @@ function Base({ user, todayLog, logs }: { user: CrewMember; todayLog?: DayLog; l
                 <PixelIcon name={t.icon} size={64} />
                 <span className="pixel-label text-foreground">{t.label}</span>
                 <span className="text-lg leading-none text-muted-foreground">
-                  {t.locked ? "Locked" : t.done ? "Logged ✓ edit" : t.to === "/dashboard" ? "Open" : "Log now"}
+                  {t.locked ? "Locked" : t.done ? "Logged ✓ edit" : t.to === "/dashboard" ? "Live ▶" : "Log now"}
                 </span>
               </Link>
             ))}
