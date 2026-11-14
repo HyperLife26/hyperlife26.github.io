@@ -1,0 +1,19 @@
+{
+  "name": "hyperlife-brief-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:mock": "bun run src/dev-server.ts",
+    "deploy": "wrangler deploy",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261114.1",
+    "@types/bun": "^1.4.4",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.162.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "facts": {
+    "crew": "CDR-ORION",
+    "base": "Mars Base",
+    "missionDay": 128,
+    "phase": "Surface ops",
+    "scenario": "Nominal operations",
+    "score": 82,
+    "rank": "A",
+    "topRisk": "Bone density loss",
+    "topRiskValue": 23,
+    "secondRisk": "Immune status change",
+    "secondRiskValue": 18,
+    "hr": 83,
+    "spo2": 97.8,
+    "temp": 36.5,
+    "hrv": 35,
+    "sleepHours": 7.1,
+    "exerciseMinutes": 60,
+    "cardiacFlag": 3,
+    "modelSource": "firmware WASM",
+    "dataSource": "daily log (logs)",
+    "trendScore": 2,
+    "trendHr": -1.2
+  }
+}

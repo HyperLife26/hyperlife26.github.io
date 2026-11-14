@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hyperlife-brief",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-15",
+  "observability": {
+    "enabled": true
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RATE_LIMITER",
+        "class_name": "RateLimiter"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["RateLimiter"]
+    }
+  ],
+  "vars": {
+    "MODEL": "@cf/meta/llama-3.1-8b-instruct-fp8-fast",
+    "ALLOWED_ORIGINS": "https://hyperlife26.github.io,http://localhost:5173,http://127.0.0.1:5173,http://localhost:8099,http://127.0.0.1:8099",
+    "IP_LIMIT": "8",
+    "IP_WINDOW_SECONDS": "600",
+    "DAILY_BUDGET": "300"
+  }
+}

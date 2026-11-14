@@ -92,16 +92,20 @@ and not a diagnosis.
 
 The brief panel tries three sources in order:
 
-1. `VITE_BRIEF_ENDPOINT` — an optional POST endpoint. It receives
-   `{ facts, system }` and returns `{ text }`. No key is shipped in the bundle;
-   put the secret in the proxy.
+1. `VITE_BRIEF_ENDPOINT` — the Cloudflare Worker in
+   `cloudflare/brief-worker`. It receives `{ facts }` and returns `{ text }`.
+   Workers AI is called through a binding, so no provider key is shipped in the
+   bundle or stored in the Worker. See the [Worker README](cloudflare/brief-worker/README.md)
+   for the free-plan setup, limits and deployment steps.
 2. Chrome's built-in `LanguageModel` API, when the browser exposes it.
 3. A facts-only template. The panel labels this `FACTS TEMPLATE` and states that
    on-device AI is unavailable.
 
-Copy `.env.example` to `.env` to point the site at a proxy. The brief never
-invents numbers: the generated text is validated against the supplied facts,
-and the template is always available as the deterministic fallback.
+The endpoint URL is public. Set it as the GitHub Actions repository variable
+`VITE_BRIEF_ENDPOINT`; the deploy workflow passes it into the static build.
+Without the variable, the site stays on the local/template paths. The brief
+never invents numbers: the generated text is validated against the supplied
+facts, and the template is always available as the deterministic fallback.
 
 ## Verify locally
 
@@ -109,7 +113,10 @@ and the template is always available as the deterministic fallback.
 bun run test    # deterministic timeline, drill, log override, WASM parity
 bun run build   # static build + prerender of all routes
 node wasm/hyperwatch/verify.mjs
+(cd cloudflare/brief-worker && bun run test && bunx tsc --noEmit)
 ```
 
 Deployment is the existing GitHub Pages workflow: commit, push to `main`, and
-the static output is published. No runtime environment variables are required.
+the static output is published. The site needs no runtime environment
+variables; the optional `VITE_BRIEF_ENDPOINT` repository variable only enables
+the generated mission brief at build time.
