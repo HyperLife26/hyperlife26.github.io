@@ -24,6 +24,24 @@ The Worker uses `@cf/meta/llama-3.1-8b-instruct-fp8-fast`, which is available on
 the free plan. Some large frontier models require Workers Paid; do not switch
 `MODEL` to one of those without checking its model page.
 
+## Deployed instance
+
+The site currently points at:
+
+```text
+https://hyperlife-brief.hyperlife-brief-worker.workers.dev
+```
+
+It is set in the GitHub Actions repository variable `VITE_BRIEF_ENDPOINT`. To
+redeploy after changing this Worker:
+
+```sh
+bun run deploy
+```
+
+The endpoint and the repository variable stay the same unless the Worker name,
+account subdomain or a custom route changes.
+
 ## Deploy
 
 You need a free Cloudflare account. No API key or payment method is needed.
@@ -180,3 +198,10 @@ bunx wrangler tail
 - `502 model_unavailable`: check `wrangler tail` and the Workers AI status page.
 - Dashboard still says `FACTS TEMPLATE`: confirm the repository variable is set
   and the Pages workflow was re-run after setting it.
+
+Deploy-time errors from Cloudflare's API:
+
+- `10034` — the account email is not verified yet; confirm it from the
+  verification mail, then deploy again.
+- `10021` — `compatibility_date` is in the future. Cloudflare validates it
+  against UTC, so set it to today's UTC date rather than a local date.
