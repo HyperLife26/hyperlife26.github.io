@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hyperlife-brief",
   "main": "src/index.ts",
-  "compatibility_date": "2026-11-15",
+  "compatibility_date": "2026-11-14",
   "observability": {
     "enabled": true
   },
