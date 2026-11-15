@@ -25,7 +25,7 @@
   ],
   "vars": {
     "MODEL": "@cf/meta/llama-3.1-8b-instruct-fp8-fast",
-    "ALLOWED_ORIGINS": "https://hyperlife26.github.io,http://localhost:5173,http://127.0.0.1:5173,http://localhost:8099,http://127.0.0.1:8099",
+    "ALLOWED_ORIGINS": "https://hyperlife.health,https://www.hyperlife.health,https://hyperlife26.github.io,http://localhost:5173,http://127.0.0.1:5173,http://localhost:8099,http://127.0.0.1:8099",
     "IP_LIMIT": "8",
     "IP_WINDOW_SECONDS": "600",
     "DAILY_BUDGET": "300"

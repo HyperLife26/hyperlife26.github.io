@@ -28,14 +28,17 @@ the free plan. Some large frontier models require Workers Paid; do not switch
 
 ## Deployed instance
 
-The site currently points at:
+The site is served at **https://hyperlife.health** (GitHub Pages custom domain)
+and the brief Worker at:
 
 ```text
 https://hyperlife-brief.hyperlife-brief-worker.workers.dev
 ```
 
-It is set in the GitHub Actions repository variable `VITE_BRIEF_ENDPOINT`. To
-redeploy after changing this Worker:
+CORS allows both `https://hyperlife.health` and
+`https://www.hyperlife.health`; `www` redirects to the apex. The endpoint is set
+in the GitHub Actions repository variable `VITE_BRIEF_ENDPOINT`. To redeploy
+after changing this Worker:
 
 ```sh
 bun run deploy
@@ -68,7 +71,7 @@ Test it with the included facts file:
 
 ```sh
 curl -sS https://hyperlife-brief.<your-subdomain>.workers.dev/ \
-  -H 'origin: https://hyperlife26.github.io' \
+  -H 'origin: https://hyperlife.health' \
   -H 'content-type: application/json' \
   --data @examples/facts.json
 ```
@@ -165,7 +168,7 @@ Edit `wrangler.jsonc` and redeploy:
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `MODEL` | `@cf/meta/llama-3.1-8b-instruct-fp8-fast` | Workers AI model; must be free-plan eligible |
-| `ALLOWED_ORIGINS` | Pages + local origins | comma-separated CORS allowlist |
+| `ALLOWED_ORIGINS` | `hyperlife.health` + local origins | comma-separated CORS allowlist |
 | `IP_LIMIT` | `8` | briefs per IP per window |
 | `IP_WINDOW_SECONDS` | `600` | IP window length |
 | `DAILY_BUDGET` | `300` | global briefs per UTC day |

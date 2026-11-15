@@ -117,6 +117,9 @@ node wasm/hyperwatch/verify.mjs
 ```
 
 Deployment is the existing GitHub Pages workflow: commit, push to `main`, and
-the static output is published. The site needs no runtime environment
-variables; the optional `VITE_BRIEF_ENDPOINT` repository variable only enables
-the generated mission brief at build time.
+the static output is published to <https://hyperlife.health> (custom domain;
+`www` redirects to the apex). The site needs no runtime environment variables;
+the optional `VITE_BRIEF_ENDPOINT` repository variable only enables the
+generated mission brief at build time. If the production origin changes again,
+add it to `ALLOWED_ORIGINS` in `cloudflare/brief-worker/wrangler.jsonc` and
+redeploy the Worker.
