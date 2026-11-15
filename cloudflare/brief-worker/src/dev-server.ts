@@ -10,7 +10,7 @@
  */
 import {
   applyWindow,
-  fakeBrief,
+  fallbackBrief,
   handleBrief,
   intFromString,
   parseOrigins,
@@ -42,7 +42,7 @@ const server = Bun.serve({
       checkIp: async (hash, limit, resetAt, now) => check(`ip:${hash}`, limit, resetAt, now),
       checkBudget: async (limit, resetAt, now) =>
         check(`budget:${utcDayKey(now)}`, limit, resetAt, now),
-      runModel: async (facts) => fakeBrief(facts),
+      runModel: async (facts) => fallbackBrief(facts),
     });
   },
 });

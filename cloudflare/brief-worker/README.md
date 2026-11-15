@@ -13,11 +13,11 @@ As of November 2026, this runs entirely on Cloudflare's free plan:
 | Workers requests | 100,000 / day | one request per brief |
 | Workers AI | 10,000 Neurons / day, hard cap | about 3–6 Neurons per brief |
 | Durable Objects | 100,000 requests / day, 13,000 GB-s / day, 5 GB SQLite | two checks per brief |
-| Credit card | not required for Workers Free | — |
+| Credit card | not required for Workers Free | none |
 
 The default daily budget is **300 briefs**, which is roughly **1,000–1,800
 Neurons per day** at this model's published rates (4,119 per million input
-tokens, 34,868 per million output tokens) — about 10–18% of the free AI
+tokens, 34,868 per million output tokens), about 10–18% of the free AI
 allowance. On Workers Free
 the allowance is a wall: once it is used, further AI calls fail instead of
 billing you. There is no overage invoice on the free plan.
@@ -206,7 +206,7 @@ bunx wrangler tail
 
 Deploy-time errors from Cloudflare's API:
 
-- `10034` — the account email is not verified yet; confirm it from the
+- `10034`: the account email is not verified yet; confirm it from the
   verification mail, then deploy again.
-- `10021` — `compatibility_date` is in the future. Cloudflare validates it
+- `10021`: `compatibility_date` is in the future. Cloudflare validates it
   against UTC, so set it to today's UTC date rather than a local date.

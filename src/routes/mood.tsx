@@ -14,9 +14,9 @@ import type { CrewMember, DayLog, FaceScale, FamilyContact, MoodLog } from "@/li
 export const Route = createFileRoute("/mood")({
   head: () => ({
     meta: [
-      { title: "Mood Log — HyperLife" },
+      { title: "Mood Log · HyperLife" },
       { name: "description", content: "Log how you feel, stress, sleep, workload and crew relations." },
-      { property: "og:title", content: "Mood Log — HyperLife" },
+      { property: "og:title", content: "Mood Log · HyperLife" },
       { property: "og:description", content: "Log how you feel, stress, sleep, workload and crew relations." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -98,7 +98,7 @@ function MoodForm({ user, todayLog, today, logs }: { user: CrewMember; todayLog?
 
       <div className="mt-6 flex items-center justify-between">
         <p className="pixel-label text-muted-foreground">
-          {missing > 0 ? `${missing} question${missing > 1 ? "s" : ""} left` : "All set — ready to save"}
+          {missing > 0 ? `${missing} question${missing > 1 ? "s" : ""} left` : "All set, ready to save"}
         </p>
         <PixelButton variant="gold" size="lg" onClick={save}>
           ★ Save mood log

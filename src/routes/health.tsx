@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/health")({
   head: () => ({
     meta: [
-      { title: "General Health — HyperLife" },
+      { title: "General Health · HyperLife" },
       { name: "description", content: "Log exercise, back and joint pain, and symptoms for today." },
-      { property: "og:title", content: "General Health — HyperLife" },
+      { property: "og:title", content: "General Health · HyperLife" },
       { property: "og:description", content: "Log exercise, back and joint pain, and symptoms for today." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

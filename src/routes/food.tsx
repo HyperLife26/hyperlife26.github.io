@@ -17,9 +17,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/food")({
   head: () => ({
     meta: [
-      { title: "Food Diary — HyperLife" },
+      { title: "Food Diary · HyperLife" },
       { name: "description", content: "Log meals, water and supplements and track your daily fuel gauges." },
-      { property: "og:title", content: "Food Diary — HyperLife" },
+      { property: "og:title", content: "Food Diary · HyperLife" },
       { property: "og:description", content: "Log meals, water and supplements and track your daily fuel gauges." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -60,7 +60,7 @@ function FoodDiary({ user, today, logs }: { user: CrewMember; todayLog?: DayLog;
   const saveDay = () => {
     if (!isFoodLogged(draft)) return toast("Log at least one meal before saving.");
     actions.saveLog(user.id, today, "food", draft);
-    toast(`Food diary saved — day score ${score.total} (rank ${rank}) ★`);
+    toast(`Food diary saved: day score ${score.total} (rank ${rank}) ★`);
     navigate({ to: "/base" });
   };
 
@@ -327,7 +327,7 @@ function MealEditor({ slot, initial, onClose, onSave }: { slot: MealSlot; initia
           <h2 className="pixel-title text-gold">Log {label}</h2>
         </div>
 
-        <p className="pixel-label mt-5 text-sky">Quick pick — space rations</p>
+        <p className="pixel-label mt-5 text-sky">Quick pick · space rations</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {MEAL_PRESETS[slot].map((p) => (
             <button

@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/base")({
   head: () => ({
     meta: [
-      { title: "Mission Base — HyperLife" },
+      { title: "Mission Base · HyperLife" },
       { name: "description", content: "Your astronaut base: log mood, food and health to unlock the health dashboard." },
-      { property: "og:title", content: "Mission Base — HyperLife" },
+      { property: "og:title", content: "Mission Base · HyperLife" },
       { property: "og:description", content: "Your astronaut base: log mood, food and health to unlock the health dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -9,9 +9,9 @@ import { ENVIRONMENTS } from "@/lib/hyperlife/constants";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "HyperLife — Select Astronaut" },
+      { title: "HyperLife · Select Astronaut" },
       { name: "description", content: "Choose your crew profile or register a new astronaut on HyperLife." },
-      { property: "og:title", content: "HyperLife — Select Astronaut" },
+      { property: "og:title", content: "HyperLife · Select Astronaut" },
       { property: "og:description", content: "Choose your crew profile or register a new astronaut on HyperLife." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

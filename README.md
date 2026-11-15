@@ -14,7 +14,7 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Prefer working locally? You need Node.js and npm. [Install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
 git clone <this-repository-url>
@@ -90,8 +90,8 @@ and not a diagnosis.
 
 ## Wearable hardware
 
-The matching ESP32-S3 SuperMini firmware — MAX30102, TMP117, MPU6050,
-SCD30/SCD40 and SH1106 — is at
+The matching ESP32-S3 SuperMini firmware (MAX30102, TMP117, MPU6050,
+SCD30/SCD40 and SH1106) is at
 <https://github.com/HyperLife26/HyperWatch>. It runs the same `RiskEngine` and
 int8 weights as the dashboard.
 
@@ -99,7 +99,7 @@ int8 weights as the dashboard.
 
 The brief panel tries three sources in order:
 
-1. `VITE_BRIEF_ENDPOINT` — the Cloudflare Worker in
+1. `VITE_BRIEF_ENDPOINT`: the Cloudflare Worker in
    `cloudflare/brief-worker`. It receives `{ facts }` and returns `{ text }`.
    Workers AI is called through a binding, so no provider key is shipped in the
    bundle or stored in the Worker. See the [Worker README](cloudflare/brief-worker/README.md)

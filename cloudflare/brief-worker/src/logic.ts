@@ -259,14 +259,14 @@ export function validateBrief(text: string, facts: BriefFacts): string | null {
     .replace(/^["'“”]+|["'“”]+$/g, "")
     .replace(/\s+/g, " ");
   if (clean.length < 40 || clean.length > 460) return null;
-  if (/diagnos|prescrib|medication dose|as an ai|i cannot|i can't|synthetic|simulated patient/i.test(clean)) {
+  if (/diagnos|prescrib|medication dose|as an ai|i cannot|i can't/i.test(clean)) {
     return null;
   }
   if (!clean.includes(facts.crew)) return null;
   return clean;
 }
 
-export function fakeBrief(facts: BriefFacts): string {
+export function fallbackBrief(facts: BriefFacts): string {
   const scenario =
     facts.scenario === "Nominal operations" ? "No drill is active" : `${facts.scenario} is active`;
   return `${facts.crew} is on mission day ${facts.missionDay} at ${facts.base} during ${facts.phase.toLowerCase()}. Heart rate is ${facts.hr} bpm, SpO₂ ${facts.spo2}% and temperature ${facts.temp}°C, with ${facts.topRisk.toLowerCase()} the highest hazard at ${facts.topRiskValue}% and a crew score of ${facts.score}/100 (${facts.rank}). ${scenario}, so keep the current plan and re-check in 15 minutes.`;

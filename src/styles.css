@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* HyperLife — retro pixel space design system.
+/* HyperLife: retro pixel space design system.
    Colours are exposed both as plain CSS variables (used by inline styles and
    SVG art) and as Tailwind theme tokens (bg-space, text-gold, ...). */
 

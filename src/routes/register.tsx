@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Register Astronaut — HyperLife" },
+      { title: "Register Astronaut · HyperLife" },
       { name: "description", content: "Enter baseline data and choose your astronaut profile image." },
-      { property: "og:title", content: "Register Astronaut — HyperLife" },
+      { property: "og:title", content: "Register Astronaut · HyperLife" },
       { property: "og:description", content: "Enter baseline data and choose your astronaut profile image." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

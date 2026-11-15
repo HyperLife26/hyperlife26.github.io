@@ -32,9 +32,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Health Dashboard — HyperLife" },
+      { title: "Health Dashboard · HyperLife" },
       { name: "description", content: "Live vitals, hazard risks, suggestions and crew score comparison." },
-      { property: "og:title", content: "Health Dashboard — HyperLife" },
+      { property: "og:title", content: "Health Dashboard · HyperLife" },
       { property: "og:description", content: "Live vitals, hazard risks, suggestions and crew score comparison." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -201,7 +201,7 @@ function Dashboard({
                   .filter((k) => riskLevel(snap.risks[k]) !== "low")
                   .map((k) => (
                     <p key={k}>
-                      ⚠ {RISK_LABELS[k]}: {snap.risks[k]}% —{" "}
+                      ⚠ {RISK_LABELS[k]}: {snap.risks[k]}% ·{" "}
                       {riskLevel(snap.risks[k]) === "high" ? "notify flight surgeon." : "keep an eye on it."}
                     </p>
                   ))}
@@ -319,7 +319,7 @@ function Dashboard({
                         <td className="py-2 text-muted-foreground">{ENVIRONMENTS[s.user.environment].short}</td>
                         <td className="w-[38%] py-2">
                           {s.score === null ? (
-                            <span className="text-muted-foreground">—</span>
+                            <span className="text-muted-foreground">-</span>
                           ) : (
                             <div className="flex items-center gap-3">
                               <span className="w-10 text-gold">{s.score}</span>

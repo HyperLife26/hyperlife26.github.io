@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/environment")({
   head: () => ({
     meta: [
-      { title: "Choose Environment — HyperLife" },
+      { title: "Choose Environment · HyperLife" },
       { name: "description", content: "Pick your mission environment: Moon base, Mars base or spaceship." },
-      { property: "og:title", content: "Choose Environment — HyperLife" },
+      { property: "og:title", content: "Choose Environment · HyperLife" },
       { property: "og:description", content: "Pick your mission environment: Moon base, Mars base or spaceship." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

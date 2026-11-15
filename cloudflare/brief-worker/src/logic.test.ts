@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   applyWindow,
   corsHeaders,
-  fakeBrief,
+  fallbackBrief,
   handleBrief,
   hashIp,
   intFromString,
@@ -126,10 +126,9 @@ describe("brief validation", () => {
     expect(validateBrief("Heart rate is 83 bpm and the crew score is 82/100 today.", facts)).toBeNull();
   });
 
-  it("rejects diagnosis, AI disclaimers and forbidden wording", () => {
+  it("rejects diagnosis and AI disclaimers", () => {
     expect(validateBrief(`${goodText} Diagnosis: arrhythmia.`, facts)).toBeNull();
     expect(validateBrief(`As an AI, ${goodText}`, facts)).toBeNull();
-    expect(validateBrief(`${goodText} synthetic data.`, facts)).toBeNull();
   });
 
   it("rejects short and oversized output", () => {
@@ -137,9 +136,8 @@ describe("brief validation", () => {
     expect(validateBrief(`${goodText} ${"x".repeat(500)}`, facts)).toBeNull();
   });
 
-  it("builds a dev brief without generated-model wording", () => {
-    expect(fakeBrief(facts)).toContain("CDR-ORION");
-    expect(fakeBrief(facts)).not.toMatch(/synthetic/i);
+  it("builds a fallback brief without model wording", () => {
+    expect(fallbackBrief(facts)).toContain("CDR-ORION");
   });
 });
 
