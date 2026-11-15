@@ -88,8 +88,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "HyperLife — Astronaut Health Monitor" },
       { property: "og:description", content: "Retro pixel health monitoring for astronaut crews." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "HyperLife" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
