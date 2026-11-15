@@ -6,8 +6,8 @@
 namespace astro {
 
 // Transparent rule engine + int8 model fusion.
-// The rule engine is the "teacher"; the model is the fast on-device student.
-// Fused score = 55% rules + 45% model (so the result stays explainable).
+// The rule engine provides the explainable baseline; the model is the fast
+// on-device complement. Fused score = 55% rules + 45% model.
 class RiskEngine {
  public:
   void begin(const HealthState& state);

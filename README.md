@@ -34,7 +34,7 @@ instead, the log forms sharpen the model inputs.
 
 - State is a pure function of wall-clock time:
   `snapshot(t) = f(seed, missionEpoch, schedule, profile, behaviour, logs)`.
-- Demo crew starts are fixed, so every visitor sees the same timeline.
+- Crew starts are fixed, so every visitor sees the same timeline.
 - `?t=<unix-ms>` opens a shareable replay. The replay re-evaluates `f(t)` for a
   seven-hour window instead of reading stored telemetry.
 - Recent mood/health/food logs override the nominal crew schedule for sleep,
@@ -47,7 +47,7 @@ Mission code lives in `src/lib/mission/`:
 
 | File | Purpose |
 | --- | --- |
-| `profiles.ts` | fixed demo epochs, crew profile, mission phase |
+| `profiles.ts` | fixed mission epochs, crew profile, mission phase |
 | `scenario.ts` | deterministic drill schedule |
 | `behavior.ts` | log-derived or nominal behaviour |
 | `vitals.ts` | vitals generation and drill effects |
@@ -87,6 +87,13 @@ threads or `SharedArrayBuffer`.
 
 The model is decision support for a research prototype, not a medical device
 and not a diagnosis.
+
+## Wearable hardware
+
+The matching ESP32-S3 SuperMini firmware — MAX30102, TMP117, MPU6050,
+SCD30/SCD40 and SH1106 — is at
+<https://github.com/HyperLife26/HyperWatch>. It runs the same `RiskEngine` and
+int8 weights as the dashboard.
 
 ## Mission brief
 

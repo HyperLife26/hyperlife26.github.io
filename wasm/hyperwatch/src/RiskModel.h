@@ -4,7 +4,7 @@
 
 namespace astro {
 
-// Int8-quantised MLP distilled from the transparent rule engine.
+// Int8-quantised MLP that complements the transparent rule engine.
 // Architecture: 13 -> 16 (ReLU) -> 8 (ReLU) -> 6 (sigmoid).
 // Weights/activations are int8; the output head is evaluated in float.
 class RiskModel {

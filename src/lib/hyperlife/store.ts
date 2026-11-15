@@ -4,7 +4,7 @@ import type { CrewMember, DayLog, FoodLog, HealthLog, MoodLog, RegistrationDraft
 import { MEAL_PRESETS } from "./constants";
 import { seededRandom, hashString } from "./scoring";
 import { buildSnapshot } from "@/lib/mission/snapshot";
-import { DEMO_MISSION_START, missionDayAt } from "@/lib/mission/profiles";
+import { FIXED_MISSION_START, missionDayAt } from "@/lib/mission/profiles";
 
 interface State {
   users: CrewMember[];
@@ -24,8 +24,8 @@ export const todayKey = () => format(new Date(), "yyyy-MM-dd");
 
 function normalizeState(s: State): State {
   const users = s.users.map((u) =>
-    DEMO_MISSION_START[u.id] && u.missionStart !== DEMO_MISSION_START[u.id]
-      ? { ...u, missionStart: DEMO_MISSION_START[u.id]! }
+    FIXED_MISSION_START[u.id] && u.missionStart !== FIXED_MISSION_START[u.id]
+      ? { ...u, missionStart: FIXED_MISSION_START[u.id]! }
       : u,
   );
   return users === s.users ? s : { ...s, users };
@@ -36,10 +36,10 @@ function load() {
   loaded = true;
   try {
     const raw = window.localStorage.getItem(KEY);
-    state = normalizeState(raw ? { ...EMPTY, ...JSON.parse(raw) } : seedDemoCrew());
+    state = normalizeState(raw ? { ...EMPTY, ...JSON.parse(raw) } : seedCrew());
     if (!raw) persist();
   } catch {
-    state = seedDemoCrew();
+    state = seedCrew();
   }
 }
 
@@ -182,26 +182,26 @@ export function crewStandings(s: State, at = Date.now()): CrewStanding[] {
     .sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
 }
 
-/* ---------------- demo crew ---------------- */
+/* ---------------- seed crew ---------------- */
 
-function seedDemoCrew(): State {
+function seedCrew(): State {
   const now = new Date();
-  const demo: (Omit<CrewMember, "missionStart"> & { vibe: number })[] = [
-    { id: "demo-orion", crewId: "CDR-ORION", age: 41, sex: "female", weightKg: 64, heightCm: 168, avatar: "female", environment: "mars", vibe: 0.85 },
-    { id: "demo-vega", crewId: "SCI-VEGA", age: 34, sex: "male", weightKg: 78, heightCm: 181, avatar: "male", environment: "moon", vibe: 0.6 },
-    { id: "demo-kito", crewId: "ENG-KITO", age: 29, sex: "other", weightKg: 58, heightCm: 172, avatar: "alien", environment: "ship", vibe: 0.4 },
+  const roster: (Omit<CrewMember, "missionStart"> & { vibe: number })[] = [
+    { id: "crew-orion", crewId: "CDR-ORION", age: 41, sex: "female", weightKg: 64, heightCm: 168, avatar: "female", environment: "mars", vibe: 0.85 },
+    { id: "crew-vega", crewId: "SCI-VEGA", age: 34, sex: "male", weightKg: 78, heightCm: 181, avatar: "male", environment: "moon", vibe: 0.6 },
+    { id: "crew-kito", crewId: "ENG-KITO", age: 29, sex: "other", weightKg: 58, heightCm: 172, avatar: "alien", environment: "ship", vibe: 0.4 },
   ];
   const users: CrewMember[] = [];
   const logs: State["logs"] = {};
 
-  for (const d of demo) {
+  for (const d of roster) {
     const { vibe, ...rest } = d;
-    users.push({ ...rest, missionStart: DEMO_MISSION_START[d.id]! });
+    users.push({ ...rest, missionStart: FIXED_MISSION_START[d.id]! });
     const rand = seededRandom(hashString(d.id));
     const r = (lo: number, hi: number) => lo + rand() * (hi - lo);
     const face = (bias: number) => Math.min(5, Math.max(1, Math.round(1 + 4 * (bias * 0.7 + rand() * 0.3)))) as FaceScale;
     logs[d.id] = {};
-    // previous 6 days complete, today left empty for demo crew
+    // previous 6 days complete, today left empty for the seed crew
     for (let i = 6; i >= 1; i--) {
       const date = format(subDays(now, i), "yyyy-MM-dd");
       const mood: MoodLog = {

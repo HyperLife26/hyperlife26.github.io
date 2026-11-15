@@ -24,23 +24,23 @@ export interface MissionProfile {
   knownCvd: boolean;
 }
 
-/** Fixed starts keep the demo timeline identical for every visitor. */
-export const DEMO_MISSION_START: Record<string, string> = {
-  "demo-orion": "2026-07-10",
-  "demo-vega": "2026-09-29",
-  "demo-kito": "2026-04-18",
+/** Fixed starts keep the mission timeline identical for every visitor. */
+export const FIXED_MISSION_START: Record<string, string> = {
+  "crew-orion": "2026-07-10",
+  "crew-vega": "2026-09-29",
+  "crew-kito": "2026-04-18",
 };
 
-export const DEMO_PROFILE: Record<string, { sleepTarget: number; stressBias: number; activityBias: number }> = {
-  "demo-orion": { sleepTarget: 7.1, stressBias: 0.3, activityBias: 1.05 },
-  "demo-vega": { sleepTarget: 6.4, stressBias: 0.42, activityBias: 0.92 },
-  "demo-kito": { sleepTarget: 6.8, stressBias: 0.36, activityBias: 1.12 },
+export const CREW_TUNING: Record<string, { sleepTarget: number; stressBias: number; activityBias: number }> = {
+  "crew-orion": { sleepTarget: 7.1, stressBias: 0.3, activityBias: 1.05 },
+  "crew-vega": { sleepTarget: 6.4, stressBias: 0.42, activityBias: 0.92 },
+  "crew-kito": { sleepTarget: 6.8, stressBias: 0.36, activityBias: 1.12 },
 };
 
 export function profileFor(user: CrewMember): MissionProfile {
   const seed = hashString(`${user.crewId}:${user.id}`);
   const env = ENVIRONMENTS[user.environment];
-  const demo = DEMO_PROFILE[user.id];
+  const tuning = CREW_TUNING[user.id];
   return {
     key: user.crewId,
     seed,
@@ -55,9 +55,9 @@ export function profileFor(user: CrewMember): MissionProfile {
     baseHrv: 52 - Math.max(0, user.age - 30) * 0.35 + ((seed >>> 6) % 7) - 3,
     baseSpo2: 97.7 + ((seed >>> 9) % 3) * 0.1,
     baseTemp: 36.55 + ((seed >>> 12) % 3) * 0.04,
-    sleepTarget: demo?.sleepTarget ?? 6.7 + ((seed >>> 5) % 10) / 10,
-    stressBias: demo?.stressBias ?? 0.28 + ((seed >>> 7) % 18) / 100,
-    activityBias: demo?.activityBias ?? 0.9 + ((seed >>> 11) % 26) / 100,
+    sleepTarget: tuning?.sleepTarget ?? 6.7 + ((seed >>> 5) % 10) / 10,
+    stressBias: tuning?.stressBias ?? 0.28 + ((seed >>> 7) % 18) / 100,
+    activityBias: tuning?.activityBias ?? 0.9 + ((seed >>> 11) % 26) / 100,
     knownCvd: user.age >= 55 && seed % 7 === 0,
   };
 }

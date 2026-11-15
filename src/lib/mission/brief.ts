@@ -87,7 +87,7 @@ const BRIEF_SYSTEM =
 function validate(text: string, facts: BriefFacts): string | null {
   const clean = text.trim().replace(/\s+/g, " ");
   if (clean.length < 40 || clean.length > 460) return null;
-  if (/simulated patient|diagnos|prescrib|medication dose/i.test(clean)) return null;
+  if (/patient|diagnos|prescrib|medication dose/i.test(clean)) return null;
   if (/(as an ai|i cannot|i can't)/i.test(clean)) return null;
   if (!clean.includes(facts.crew)) return null;
   return clean;

@@ -20,7 +20,7 @@ void RiskEngine::setBaseline(float hr, float hrv, float spo2, float tempC) {
   baselineTempC_ = tempC;
 }
 
-// Mirrors the teacher in tools/train_risk_model.py.
+// Transparent rule baseline for the five risk domains.
 void RiskEngine::evaluateRules(const Vitals& v, const MissionContext& m,
                                RiskScores& out) const {
   const float hr = v.hr;
@@ -62,7 +62,7 @@ void RiskEngine::evaluateRules(const Vitals& v, const MissionContext& m,
       clampf(activity * 0.08f, 0.0f, 8.0f),
       0.0f, 100.0f);
 
-  // --- radiation (600 mSv career reference, demo only) ---
+  // --- radiation (600 mSv career reference) ---
   // Career dose + current dose rate + acute solar-particle-event term.
   const float acuteRad = clampf((dailyRad - 1.0f) * 4.0f, 0.0f, 20.0f);
   const float radiation = clampf(

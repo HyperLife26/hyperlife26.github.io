@@ -3,8 +3,9 @@
 This directory vendors the actual HyperWatch risk engine so the browser and the
 firmware run the same code.
 
-- `src/` is copied from `HyperWatch/firmware/HyperWatchCore/src` at commit
-  `42ca3d5` (model v1.0).
+- `src/` is copied from the public HyperWatch repository,
+  `firmware/HyperWatchCore/src` at commit `04a171e` (model v1.0):
+  <https://github.com/HyperLife26/HyperWatch>.
 - `shim/Arduino.h` supplies the tiny platform surface the core needs.
 - `wrapper.cpp` exposes a flat C ABI: `hw_begin`, `hw_evaluate`, `hw_out`.
 - `build.sh` compiles `public/hyperwatch/risk.wasm` with Zig's bundled LLVM.

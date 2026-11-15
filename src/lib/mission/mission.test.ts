@@ -3,12 +3,12 @@ import { readFileSync } from "node:fs";
 import type { CrewMember, DayLog } from "@/lib/hyperlife/types";
 import { dateKey } from "./deterministic";
 import { evaluateHardwareFallback, type HardwareInput } from "./int8Model";
-import { DEMO_MISSION_START } from "./profiles";
+import { FIXED_MISSION_START } from "./profiles";
 import { scenarioAt, SCHEDULE_EPOCH_MS, SLOT_MS, DRILL_MS } from "./scenario";
 import { buildMissionView, buildSnapshot } from "./snapshot";
 
 const crew: CrewMember = {
-  id: "demo-orion",
+  id: "crew-orion",
   crewId: "CDR-ORION",
   age: 41,
   sex: "female",
@@ -16,16 +16,16 @@ const crew: CrewMember = {
   heightCm: 168,
   avatar: "female",
   environment: "mars",
-  missionStart: DEMO_MISSION_START["demo-orion"]!,
+  missionStart: FIXED_MISSION_START["crew-orion"]!,
 };
 
 const at = Date.UTC(2026, 10, 15, 12, 0, 0);
 
 describe("deterministic mission timeline", () => {
-  it("uses fixed demo mission starts", () => {
-    expect(DEMO_MISSION_START["demo-orion"]).toBe("2026-07-10");
-    expect(DEMO_MISSION_START["demo-vega"]).toBe("2026-09-29");
-    expect(DEMO_MISSION_START["demo-kito"]).toBe("2026-04-18");
+  it("uses fixed mission starts", () => {
+    expect(FIXED_MISSION_START["crew-orion"]).toBe("2026-07-10");
+    expect(FIXED_MISSION_START["crew-vega"]).toBe("2026-09-29");
+    expect(FIXED_MISSION_START["crew-kito"]).toBe("2026-04-18");
   });
 
   it("returns the same snapshot for the same wall-clock instant", () => {

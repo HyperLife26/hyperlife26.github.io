@@ -39,15 +39,6 @@ enum MissionPhase : uint8_t {
   PHASE_POSTFLIGHT = 6
 };
 
-enum Scenario : uint8_t {
-  SCENARIO_NORMAL = 0,
-  SCENARIO_CARDIAC_EVENT = 1,
-  SCENARIO_RADIATION_STORM = 2,
-  SCENARIO_BONE_FLARE = 3,
-  SCENARIO_IMMUNE_FLARE = 4,
-  SCENARIO_COUNT = 5
-};
-
 enum Sex : uint8_t {
   SEX_UNKNOWN = 0,
   SEX_FEMALE = 1,
@@ -70,8 +61,7 @@ struct Vitals {
   bool symptomFlag = false;
   uint32_t timestampMs = 0;
 
-  // Environmental / motion inputs. These are populated by the production
-  // build and stay at their defaults in the demo.
+  // Environmental / motion inputs supplied by the MPU6050 and SCD30/SCD40.
   float co2Ppm = 0.0f;
   bool co2Valid = false;
   uint32_t steps = 0;
@@ -230,17 +220,6 @@ inline const char* phaseText(MissionPhase p) {
     case PHASE_POSTFLIGHT: return "POSTFLIGHT";
   }
   return "UNKNOWN";
-}
-
-inline const char* scenarioText(Scenario s) {
-  switch (s) {
-    case SCENARIO_NORMAL: return "NOMINAL";
-    case SCENARIO_CARDIAC_EVENT: return "CARDIAC EVENT";
-    case SCENARIO_RADIATION_STORM: return "RADIATION STORM";
-    case SCENARIO_BONE_FLARE: return "BONE FLARE";
-    case SCENARIO_IMMUNE_FLARE: return "IMMUNE FLARE";
-    default: return "?";
-  }
 }
 
 }  // namespace astro

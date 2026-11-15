@@ -27,7 +27,7 @@ bool RiskModel::begin() {
   return true;
 }
 
-// Feature order MUST match tools/train_risk_model.py.
+// Feature order is the model's fixed input contract.
 void RiskModel::buildFeatures(const Vitals& v, const MissionContext& m, float* out) const {
   out[0] = clampf((v.hr - 40.0f) / 140.0f, 0.0f, 1.0f);
   out[1] = clampf(v.hrv / 120.0f, 0.0f, 1.0f);

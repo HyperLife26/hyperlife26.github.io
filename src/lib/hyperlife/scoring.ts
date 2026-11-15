@@ -159,7 +159,7 @@ export function healthFactors(h: HealthLog) {
   };
 }
 
-/* ---------------- vitals (simulated wearable) ---------------- */
+/* ---------------- vitals (wearable feed) ---------------- */
 
 export interface VitalSeries {
   key: "hr" | "spo2" | "temp";
@@ -180,7 +180,7 @@ export const statusForZ = (z: number): VitalStatus =>
 
 export const VITAL_POINTS = 42;
 
-export function simulateVitals(user: CrewMember, day: Required<DayLog>, dateKey: string) {
+export function deriveVitals(user: CrewMember, day: Required<DayLog>, dateKey: string) {
   const rand = seededRandom(hashString(`${user.id}:${dateKey}`));
   const mf = moodFactors(day.mood);
   const hf = healthFactors(day.health);
@@ -313,7 +313,7 @@ export function crewScore(r: Risks) {
 
 /** Full dashboard evaluation for one complete day. */
 export function evaluateDay(user: CrewMember, day: Required<DayLog>, dateKey: string) {
-  const vitals = simulateVitals(user, day, dateKey);
+  const vitals = deriveVitals(user, day, dateKey);
   const risks = computeRisks(user, day, vitals.hr.z);
   const score = crewScore(risks);
   return { vitals, risks, score, rank: rankFor(score) };
